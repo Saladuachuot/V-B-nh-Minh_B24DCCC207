@@ -1,34 +1,62 @@
 package Generic_test;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Test {
-    static class Block<T> {
-        String name; List<T> items = new ArrayList<>();
-        Block(String name){ this.name = name; }
-        void add(T it){ items.add(it); }
-        void display(){
-            System.out.println("== "+name+" ("+items.size()+") ==");
-            if(items.isEmpty()) System.out.println("(Trống)");
-            else items.forEach(i -> System.out.println(i));
-        }
+class Block<T> {
+    private List<T> items = new ArrayList<>();
+    public void add(T item) {
+        items.add(item);
+        System.out.println("Đã thêm: " + item);
     }
 
-    static class Book { String id,title; Book(String i,String t){id=i;title=t;} public String toString(){return "Book["+id+" "+title+"]";} }
-    static class Phone{ String id,model; Phone(String i,String m){id=i;model=m;} public String toString(){return "Phone["+id+" "+model+"]";} }
-    static class Food { String id,name; Food(String i,String n){id=i;name=n;} public String toString(){return "Food["+id+" "+name+"]";} }
+    public T get(int index) {
+        return items.get(index);
+    }
 
-    public static void main(String[] args){
-        Block<Book> books = new Block<>("Books");
-        Block<Phone> phones = new Block<>("Phones");
-        Block<Food> foods = new Block<>("Foods");
+    public void showAll() {
+        System.out.println("Danh sách: " + items);
+    }
+}
 
-        books.add(new Book("B1","Java Basics"));
-        phones.add(new Phone("P1","Galaxy"));
-        foods.add(new Food("F1","Bread"));
+class Book {
+    private String name;
+    public Book(String name) { this.name = name; }
+    @Override
+    public String toString() {
+        return "Book: " + name;
+    }
+}
 
-        books.display();
-        phones.display();
-        foods.display();
+class Phone {
+    private String brand;
+    public Phone(String brand) { this.brand = brand; }
+    @Override
+    public String toString() {
+        return "Phone: " + brand;
+    }
+}
+
+class Food {
+    private String name;
+    public Food(String name) { this.name = name; }
+    @Override
+    public String toString() {
+        return "Food: " + name;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+
+        Block<Book> bookBlock = new Block<>();
+        Block<Phone> phoneBlock = new Block<>();
+        Block<Food> foodBlock = new Block<>();
+
+        bookBlock.add(new Book("Harry Potter"));
+        phoneBlock.add(new Phone("iPhone"));
+        foodBlock.add(new Food("Gạo"));
+
+        bookBlock.showAll();
+        phoneBlock.showAll();
+        foodBlock.showAll();
     }
 }
